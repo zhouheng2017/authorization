@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.authorization.dao.UserRoleMapper">
+    <insert id="saveUserRole" parameterType="UserRole">
+        INSERT INTO user_role (user_id, role_id) VALUES (#{userId}, #{roleId});
+    </insert>
+    <select id="getUserRoleById" parameterType="_int" resultType="UserRole">
+        SELECT * FROM user_role where user_role_id=#{user_role_id};
+    </select>
+    <delete id="deleteUserRole" parameterType="int">
+        DELETE FROM user_role WHERE user_role_id=#{user_role_id};
+    </delete>
+    <select id="updateUserRole" parameterType="UserRole">
+        UPDATE user_role SET user_id = #{userId}, role_id=#{roleId} WHERE user_role_id=#{userRoleId};
+    </select>
+    <select id="listUserRole" resultType="UserRole">
+        SELECT * FROM user_role
+        <if test="start!=null and count!=null ">
+            LIMIT #{start},#{count}
+        </if>
+    </select>
+    <select id="total" resultType="int">
+        SELECT COUNT(*) FROM user_role;
+    </select>
+    <select id="getUserRoleByUserIdAndRoleId" resultType="UserRole">
+
+        SELECT * FROM user_role WHERE user_id=#{userId} AND role_id=#{roleId};
+    </select>
+    <select id="deleteUserRoleByUserId">
+        DELETE FROM user_role WHERE user_id= #{userId}
+
+    </select>
+</mapper>

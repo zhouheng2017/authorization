@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.authorization.dao.UserMapper">
+    <insert id="saveUser" parameterType="User">
+        INSERT INTO user (username, password, email, phone) VALUES (#{username}, #{password}, #{email}, #{phone});
+    </insert>
+    <select id="getUserById" parameterType="_int" resultType="User">
+        SELECT * FROM user WHERE user_id=#{userId};
+    </select>
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM user WHERE user_id=#{userId};
+    </delete>
+    <select id="updateUser" parameterType="User">
+        UPDATE user SET username = #{username}, password = #{password}, email=#{email}, phone=#{phone} WHERE user_id=#{userId};
+    </select>
+    <select id="listUser" resultType="User">
+        SELECT * FROM user
+        <if test="start!=null and count!=null ">
+            LIMIT #{start},#{count}
+        </if>
+    </select>
+    <select id="total" resultType="int">
+        SELECT COUNT(*) FROM user;
+    </select>
+    <select id="getRoleByUserId" resultType="com.authorization.model.Role">
+        SELECT r.role_id, r.role_name, r.title from role r,user_role ur where ur.user_role_id = r.role_id and ur.user_id = #{userId}
+    </select>
+    <select id="getUserByName" resultType="User">
+
+        SELECT * FROM user WHERE username= #{username};
+    </select>
+    <!--<select id="getRoleByUserId" resultType="com.authorization.model.Role">
+        /*SELECT role.role_id, role.role_name FROM
+        role
+        LEFT JOIN user_role ON user_role.role_id = role.role_id
+        LEFT JOIN (SELECT user_id FROM user WHERE user_id = #{userId}) uu on uu.user_id = user_role.user_id
+        GROUP BY uu.user_id;*/
+
+/*        SELECT role.role_name , role.title FROM
+        role
+        LEFT JOIN user_role ON user_role.role_id = role.role_id
+        LEFT JOIN (SELECT user_id FROM user WHERE user_id = #{userId}) uu on uu.user_id = user_role.user_id
+        GROUP BY uu.user_id;*/
+
+
+
+/*        SELECT r.role_id, r.role_name, r.title FROM
+
+          user u,role r,user_role ur
+
+        WHERE
+
+          ur.user_id = #{userId} AND ur.role_id=r.role_id;*/
+
+        SELECT r.role_id, r.role_name, r.title from role r,user_role ur where ur.user_role_id = r.role_id and ur.user_id = #{userId}
+    </select>-->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

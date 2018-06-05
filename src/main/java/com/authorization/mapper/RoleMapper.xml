@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.authorization.dao.RoleMapper">
+    <insert id="saveRole" parameterType="Role">
+        INSERT INTO role (title, role_name) VALUES (#{title}, #{roleName});
+    </insert>
+    <select id="getRoleById" parameterType="_int" resultType="Role">
+        SELECT * FROM role where role_id=#{roleId};
+    </select>
+    <delete id="deleteRole" parameterType="int">
+        DELETE FROM role WHERE role_id=#{roleId};
+    </delete>
+    <select id="updateRole" parameterType="Role">
+        UPDATE role SET title = #{title}, role_name = #{roleName} WHERE role_id=#{roleId};
+    </select>
+    <select id="listRole" resultType="Role">
+        SELECT * FROM role
+        <if test="start!=null and count!=null ">
+            LIMIT #{start},#{count}
+        </if>
+    </select>
+    <select id="total" resultType="int">
+        SELECT COUNT(*) FROM role;
+    </select>
+
+    <select id="getRoleByUserId" resultType="com.authorization.model.Role">
+
+        SELECT r.role_id, r.role_name from role r,user_role ur where ur.role_id = r.role_id and ur.user_id = #{userId}
+    </select>
+</mapper>

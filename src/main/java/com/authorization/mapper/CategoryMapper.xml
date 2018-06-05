@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.authorization.dao.CategoryMapper">
+    <insert id="saveCategory" parameterType="Category">
+        INSERT INTO category_ (name) VALUES (#{name});
+    </insert>
+    <select id="getCategoryById" parameterType="_int" resultType="Category">
+        SELECT * FROM category_ where id=#{id};
+    </select>
+    <delete id="deleteCategory" parameterType="int">
+        DELETE FROM category_ WHERE id=#{id};
+    </delete>
+    <select id="updateCategory" parameterType="Category">
+        UPDATE category_ SET name = #{name} WHERE id=#{id};
+    </select>
+    <select id="listCategory" resultType="Category">
+        SELECT * FROM category_
+        <if test="start!=null and count!=null ">
+            LIMIT #{start},#{count}
+        </if>
+    </select>
+    <select id="total" resultType="int">
+        SELECT COUNT(*) FROM category_;
+    </select>
+</mapper>

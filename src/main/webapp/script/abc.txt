@@ -1,0 +1,117 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="/script/jquery-2.0.2.min.js"></script>
+    <script type="text/javascript">
+        $("#testJson").click(function () {
+            var url = this.href;
+            var args = {};
+            $.post(url, args, function (data) {
+                for(var i=0; i<data.length;i++) {
+                    var id = data[i].id;
+                    var lastName = data[i].lastName;
+                    alert(id + ":" + lastName);
+                }
+            })
+
+            return false;
+
+        });
+    </script>
+</head>
+<body>
+<h2>Hello World!</h2>
+
+
+<a href="/stringMVC/testJson" id="testJson">testJson</a>
+<br/><br/>
+<a href="/stringMVC/testRedirect">redirect</a>
+
+<a href="/stringMVC/testView">View</a>
+
+<%--String userName, String password, String age--%>
+<form action="/stringMVC/testModelAttribute" method="post">
+
+    id:<input type="hidden" name="id" value="1">
+
+    userName: <input type="text" name="userName" value="userName"/>
+    age:<input type="text" name="age" value="23">
+    <input type="submit" value="submit">
+
+
+
+</form>
+
+<a href="/stringMVC/testSessionAttributes">SessionAttributes</a>
+<br/>
+<a href="/stringMVC/testMap">test map</a>
+<br/><br/>
+<a href="/stringMVC/testModelAndView">testModelAndView</a>
+
+<a href="/stringMVC/testServletApi">testServletApi</a>
+
+
+<form action="/stringMVC/testPojo" method="post">
+    userName:<input type="text" name="userName"/>
+    password:<input type="password" name="password">
+    age: <input type="text" name="age"/>
+    province<input type="text" name="address.province"/>
+    city:<input type="text" name="address.city"/>
+    <input type="submit" value="submit"/>
+
+
+
+</form>
+
+<a href="/stringMVC/testRequestHeaders">/testRequestHeaders</a>
+<br>
+<br>
+
+<a href="/helloController/helloWorld">hellocontroller</a>
+<form action="/stringMVC/testRequestMapping" method="post">
+    <input type="submit" value="submit">
+
+</form>
+<a href="/stringMVC/testParamsAndHeaders?username=atguigu&age=110">testParamsAndHeaders</a>
+<a href="/stringMVC/testAntPath/sdfdsf/abc">testAntPath</a>
+<a href="/stringMVC/testPathVariable/1">testPathVariable</a>
+<br>
+
+
+
+<a href="/stringMVC/testRequestParam?username=zhouheng&age=10">TestRequestParam</a>
+
+<%--Restful 风格 order/1 get--%>
+<a href="/stringMVC/testResult/1">Test Get method</a>
+<br>
+<form action="/stringMVC/testResult" method="post">
+    <input type="submit" value="testResult Post"/>
+
+</form>
+
+<form action="/stringMVC/testResult/1" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="TestDelete"/>
+</form>
+
+<form action="/stringMVC/testResult/1" method="post">
+    <input type="hidden" name="_method" value="put">
+    <input type="submit" value="Testput"/>
+</form>
+
+
+<br/><br/>
+<a href="/employee/emps"> List ALL</a>
+
+<br/>
+<a href="/employee/emp">Add Employee</a>
+
+<br/><br/>
+
+<form action="/stringMVC/testHttpMessageConverter" method="post" enctype="multipart/form-data">
+    File:<input type="file" name="file"/>
+    DESC:<input type="text" name="desc"/>
+    <input type="submit" value="submit"/>
+</form>
+</body>
+</html>
